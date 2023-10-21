@@ -706,14 +706,14 @@ public final class User {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string userName = 1;</code>
+     * <code>string email = 1;</code>
      */
-    java.lang.String getUserName();
+    java.lang.String getEmail();
     /**
-     * <code>string userName = 1;</code>
+     * <code>string email = 1;</code>
      */
     com.google.protobuf.ByteString
-        getUserNameBytes();
+        getEmailBytes();
 
     /**
      * <code>string password = 2;</code>
@@ -738,7 +738,7 @@ public final class User {
       super(builder);
     }
     private LoginRequest() {
-      userName_ = "";
+      email_ = "";
       password_ = "";
     }
 
@@ -769,7 +769,7 @@ public final class User {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              userName_ = s;
+              email_ = s;
               break;
             }
             case 18: {
@@ -810,34 +810,34 @@ public final class User {
               com.example.grpc.User.LoginRequest.class, com.example.grpc.User.LoginRequest.Builder.class);
     }
 
-    public static final int USERNAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object userName_;
+    public static final int EMAIL_FIELD_NUMBER = 1;
+    private volatile java.lang.Object email_;
     /**
-     * <code>string userName = 1;</code>
+     * <code>string email = 1;</code>
      */
-    public java.lang.String getUserName() {
-      java.lang.Object ref = userName_;
+    public java.lang.String getEmail() {
+      java.lang.Object ref = email_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        userName_ = s;
+        email_ = s;
         return s;
       }
     }
     /**
-     * <code>string userName = 1;</code>
+     * <code>string email = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getUserNameBytes() {
-      java.lang.Object ref = userName_;
+        getEmailBytes() {
+      java.lang.Object ref = email_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userName_ = b;
+        email_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -892,8 +892,8 @@ public final class User {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getUserNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userName_);
+      if (!getEmailBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, email_);
       }
       if (!getPasswordBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
@@ -907,8 +907,8 @@ public final class User {
       if (size != -1) return size;
 
       size = 0;
-      if (!getUserNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userName_);
+      if (!getEmailBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, email_);
       }
       if (!getPasswordBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
@@ -929,8 +929,8 @@ public final class User {
       com.example.grpc.User.LoginRequest other = (com.example.grpc.User.LoginRequest) obj;
 
       boolean result = true;
-      result = result && getUserName()
-          .equals(other.getUserName());
+      result = result && getEmail()
+          .equals(other.getEmail());
       result = result && getPassword()
           .equals(other.getPassword());
       result = result && unknownFields.equals(other.unknownFields);
@@ -944,8 +944,8 @@ public final class User {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + USERNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getUserName().hashCode();
+      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
+      hash = (53 * hash) + getEmail().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
       hash = (53 * hash) + getPassword().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -1081,7 +1081,7 @@ public final class User {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        userName_ = "";
+        email_ = "";
 
         password_ = "";
 
@@ -1111,7 +1111,7 @@ public final class User {
       @java.lang.Override
       public com.example.grpc.User.LoginRequest buildPartial() {
         com.example.grpc.User.LoginRequest result = new com.example.grpc.User.LoginRequest(this);
-        result.userName_ = userName_;
+        result.email_ = email_;
         result.password_ = password_;
         onBuilt();
         return result;
@@ -1161,8 +1161,8 @@ public final class User {
 
       public Builder mergeFrom(com.example.grpc.User.LoginRequest other) {
         if (other == com.example.grpc.User.LoginRequest.getDefaultInstance()) return this;
-        if (!other.getUserName().isEmpty()) {
-          userName_ = other.userName_;
+        if (!other.getEmail().isEmpty()) {
+          email_ = other.email_;
           onChanged();
         }
         if (!other.getPassword().isEmpty()) {
@@ -1198,71 +1198,71 @@ public final class User {
         return this;
       }
 
-      private java.lang.Object userName_ = "";
+      private java.lang.Object email_ = "";
       /**
-       * <code>string userName = 1;</code>
+       * <code>string email = 1;</code>
        */
-      public java.lang.String getUserName() {
-        java.lang.Object ref = userName_;
+      public java.lang.String getEmail() {
+        java.lang.Object ref = email_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          userName_ = s;
+          email_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string userName = 1;</code>
+       * <code>string email = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getUserNameBytes() {
-        java.lang.Object ref = userName_;
+          getEmailBytes() {
+        java.lang.Object ref = email_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userName_ = b;
+          email_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string userName = 1;</code>
+       * <code>string email = 1;</code>
        */
-      public Builder setUserName(
+      public Builder setEmail(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        userName_ = value;
+        email_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string userName = 1;</code>
+       * <code>string email = 1;</code>
        */
-      public Builder clearUserName() {
+      public Builder clearEmail() {
         
-        userName_ = getDefaultInstance().getUserName();
+        email_ = getDefaultInstance().getEmail();
         onChanged();
         return this;
       }
       /**
-       * <code>string userName = 1;</code>
+       * <code>string email = 1;</code>
        */
-      public Builder setUserNameBytes(
+      public Builder setEmailBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        userName_ = value;
+        email_ = value;
         onChanged();
         return this;
       }
@@ -2517,14 +2517,14 @@ public final class User {
   static {
     java.lang.String[] descriptorData = {
       "\n\nuser.proto\"6\n\023RegistrationRequest\022\r\n\005e" +
-      "mail\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"2\n\014LoginReq" +
-      "uest\022\020\n\010userName\030\001 \001(\t\022\020\n\010password\030\002 \001(\t" +
-      "\"<\n\013APIResponse\022\024\n\014responseCode\030\001 \001(\t\022\027\n" +
-      "\017responseMessage\030\002 \001(\t\"\007\n\005Empty2\200\001\n\004user" +
-      "\0222\n\014registration\022\024.RegistrationRequest\032\014" +
-      ".APIResponse\022$\n\005login\022\r.LoginRequest\032\014.A" +
-      "PIResponse\022\036\n\006logout\022\006.Empty\032\014.APIRespon" +
-      "seB\022\n\020com.example.grpcb\006proto3"
+      "mail\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"/\n\014LoginReq" +
+      "uest\022\r\n\005email\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"<\n" +
+      "\013APIResponse\022\024\n\014responseCode\030\001 \001(\t\022\027\n\017re" +
+      "sponseMessage\030\002 \001(\t\"\007\n\005Empty2\200\001\n\004user\0222\n" +
+      "\014registration\022\024.RegistrationRequest\032\014.AP" +
+      "IResponse\022$\n\005login\022\r.LoginRequest\032\014.APIR" +
+      "esponse\022\036\n\006logout\022\006.Empty\032\014.APIResponseB" +
+      "\022\n\020com.example.grpcb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2549,7 +2549,7 @@ public final class User {
     internal_static_LoginRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_LoginRequest_descriptor,
-        new java.lang.String[] { "UserName", "Password", });
+        new java.lang.String[] { "Email", "Password", });
     internal_static_APIResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_APIResponse_fieldAccessorTable = new

@@ -22,7 +22,7 @@ public class userService extends userGrpc.userImplBase {
 
         User.APIResponse.Builder response = User.APIResponse.newBuilder();
 
-        try(Connection connection = DriverManager.getConnection(url,user,password);){
+        try(Connection connection = DriverManager.getConnection(url,user,password)){
 
             String checkingQuery = "SELECT email FROM authentication WHERE email=?";
             PreparedStatement checkStatement = connection.prepareStatement(checkingQuery);
@@ -56,17 +56,30 @@ public class userService extends userGrpc.userImplBase {
     @Override
     public void login(User.LoginRequest request, StreamObserver<User.APIResponse> responseObserver) {
 //        super.login(request, responseObserver);
-        System.out.println("Inside the login");
 
-        String userName = request.getUserName();
-        String password = request.getPassword();
+        String userEmail = request.getEmail();
+        String userPassword = HashPassword(request.getPassword());
 
         User.APIResponse.Builder response = User.APIResponse.newBuilder();
 
-        if(userName.equals(password)){
-            response.setResponseCode("0").setResponseMessage("Success");
-        }else{
-            response.setResponseCode("100").setResponseMessage("Failed");
+        try(Connection connection = DriverManager.getConnection(url,user,password);){
+            String checkQuery = "SELECT password FROM authentication WHERE email=?";
+            PreparedStatement checkingStatement = connection.prepareStatement(checkQuery);
+            checkingStatement.setString(1,userEmail);
+            ResultSet resultSet = checkingStatement.executeQuery();
+
+            if(resultSet.next()){
+                String temp = resultSet.getString("password");
+                if(userPassword.equals(resultSet.getString("password"))){
+                    response.setResponseCode("200").setResponseMessage("Successfully Logged in").build();
+                }else{
+                    response.setResponseCode("400").setResponseMessage("Given Password "+userPassword+" | Database Password "+resultSet.getString("password")).build();
+                }
+            }else{
+                response.setResponseCode("400").setResponseMessage("This account is not registered.").build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         responseObserver.onNext(response.build());
@@ -81,6 +94,7 @@ public class userService extends userGrpc.userImplBase {
     }
 
     private String HashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt(12));
+        String fixedSalt = "$2a$12$9z7vgy88gfgN3n.wNm3qRu";
+        return BCrypt.hashpw(password, fixedSalt);
     }
 }

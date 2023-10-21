@@ -20,15 +20,18 @@ public class GRPCClient {
             if(option == 0){
                 System.out.println("Exit");
                 break;
-            }
-            else if(option == 1){
+            }else if(option == 1){
                 System.out.print("Enter Your E-mail: ");
                 String email = sc.nextLine();
                 System.out.print("Enter Your Password: ");
                 String password = sc.nextLine();
                 createAccount(email,password,userStub);
             }else if(option == 2){
-                System.out.println("2 is choosed");
+                System.out.print("Enter Your E-mail: ");
+                String email = sc.nextLine();
+                System.out.print("Enter Your Password: ");
+                String password = sc.nextLine();
+                loginAccount(email,password,userStub);
             }else if(option == 3) {
                 System.out.println("3 is choosed");
             }else if(option == 4){
@@ -37,6 +40,12 @@ public class GRPCClient {
                 System.out.println("Invalid option.");
             }
         }
+    }
+
+    private static void loginAccount(String email, String password, userGrpc.userBlockingStub userStub) {
+        User.LoginRequest loginRequest = User.LoginRequest.newBuilder().setEmail(email).setPassword(password).build();
+        User.APIResponse loginResponse = userStub.login(loginRequest);
+        System.out.println("\n"+loginResponse.getResponseMessage()+"\n");
     }
 
     private static void createAccount(String email,String password,userGrpc.userBlockingStub userStub) {
