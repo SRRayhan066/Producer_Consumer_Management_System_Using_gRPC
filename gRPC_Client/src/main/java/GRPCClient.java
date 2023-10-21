@@ -18,7 +18,7 @@ public class GRPCClient {
             sc.nextLine();
 
             if(option == 0){
-                System.out.println("Exit");
+                System.out.println("\nProgram is closed.\n");
                 break;
             }else if(option == 1){
                 System.out.print("Enter Your E-mail: ");
@@ -47,11 +47,38 @@ public class GRPCClient {
                 String email = sc.nextLine();
                 viewProfile(email,userStub);
             }else if (option == 5){
-                System.out.println("5 is chosen");
+                System.out.print("Enter Your E-mail: ");
+                String email = sc.nextLine();
+                updateProfile(email,userStub,sc);
             }else{
                 System.out.println("Invalid option.");
             }
         }
+    }
+
+    private static void updateProfile(String email, userGrpc.userBlockingStub userStub,Scanner sc) {
+        User.ShowUserProfileRequest viewRequest = User.ShowUserProfileRequest.newBuilder().setEmail(email).build();
+        User.ShowUserProfileRequestResponse viewResponse = userStub.showProfile(viewRequest);
+        String prevName = viewResponse.getName();
+        String prevDepartment = viewResponse.getDepartment();
+        String prevBatch = viewResponse.getBatch();
+
+        System.out.println("Previous Name: "+prevName);
+        System.out.print("New Name: ");
+        String newName = sc.nextLine();
+
+        System.out.println("Previous Department: "+prevDepartment);
+        System.out.print("New Department: ");
+        String newDepartment = sc.nextLine();
+
+        System.out.println("Previous Batch: "+prevBatch);
+        System.out.print("New Batch: ");
+        String newBatch = sc.nextLine();
+
+        User.UpdateProfileRequest updateProfileRequest = User.UpdateProfileRequest.newBuilder().setEmail(email).setName(newName)
+                .setDepartment(newDepartment).setBatch(newBatch).build();
+        User.APIResponse response = userStub.updateProfile(updateProfileRequest);
+        System.out.println("\n"+response.getResponseMessage()+"\n");
     }
 
     private static void viewProfile(String email, userGrpc.userBlockingStub userStub) {

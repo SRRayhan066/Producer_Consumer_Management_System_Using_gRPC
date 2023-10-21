@@ -20,6 +20,7 @@ org\example\App.class
 com\example\grpc\User$CreateProfileRequest$1.class
 com\example\grpc\User.class
 com\example\grpc\userGrpc$userImplBase.class
+com\example\grpc\User$UpdateProfileRequest$1.class
 com\example\grpc\userGrpc$MethodHandlers.class
 com\example\grpc\User$CreateProfileRequest.class
 com\example\grpc\userGrpc$userBlockingStub.class
@@ -39,4 +40,7 @@ com\example\grpc\User$APIResponse$1.class
 com\example\grpc\User$ShowUserProfileRequest.class
 com\example\grpc\User$CreateProfileRequestOrBuilder.class
 com\example\grpc\userGrpc$userStub.class
+com\example\grpc\User$UpdateProfileRequest$Builder.class
 com\example\grpc\User$LoginRequest.class
+com\example\grpc\User$UpdateProfileRequest.class
+com\example\grpc\User$UpdateProfileRequestOrBuilder.class

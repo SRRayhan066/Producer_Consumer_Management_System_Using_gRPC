@@ -153,6 +153,38 @@ public class userService extends userGrpc.userImplBase {
     }
 
     @Override
+    public void updateProfile(User.UpdateProfileRequest request, StreamObserver<User.APIResponse> responseObserver) {
+//        super.updateProfile(request, responseObserver);
+        String userMail = request.getEmail();
+        String userName = request.getName();
+        String department = request.getDepartment();
+        String batch = request.getBatch();
+
+        User.APIResponse.Builder response = User.APIResponse.newBuilder();
+
+        try(Connection connection = DriverManager.getConnection(url,user,password)){
+            String updateQuery = "UPDATE userprofile SET name = ?, department = ?, batch = ? WHERE email = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setString(1,userName);
+            updateStatement.setString(2,department);
+            updateStatement.setString(3,batch);
+            updateStatement.setString(4,userMail);
+
+            int flag = updateStatement.executeUpdate();
+            if(flag == 1){
+                response.setResponseCode("200").setResponseMessage("Profile updated Successfully!!");
+            }else{
+                response.setResponseCode("400").setResponseMessage("Failed to Update");
+            }
+
+            responseObserver.onNext(response.build());
+            responseObserver.onCompleted();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void logout(User.Empty request, StreamObserver<User.APIResponse> responseObserver) {
 //        super.logout(request, responseObserver);
         System.out.println("Inside the logout");

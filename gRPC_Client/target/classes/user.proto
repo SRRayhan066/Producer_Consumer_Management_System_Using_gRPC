@@ -7,6 +7,7 @@ service user{
   rpc login(LoginRequest) returns (APIResponse);
   rpc createProfile(CreateProfileRequest) returns (APIResponse);
   rpc showProfile(ShowUserProfileRequest) returns (ShowUserProfileRequestResponse);
+  rpc updateProfile(UpdateProfileRequest) returns (APIResponse);
   rpc logout(Empty) returns (APIResponse);
 }
 
@@ -21,7 +22,7 @@ message LoginRequest{
 }
 
 message CreateProfileRequest{
-  string  email = 1;
+  string email = 1;
   string name = 2;
   string department = 3;
   string batch = 4;
@@ -29,6 +30,13 @@ message CreateProfileRequest{
 
 message ShowUserProfileRequest{
   string email = 1;
+}
+
+message UpdateProfileRequest{
+  string email = 1;
+  string name = 2;
+  string department = 3;
+  string batch = 4;
 }
 
 message ShowUserProfileRequestResponse{

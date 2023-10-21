@@ -155,6 +155,38 @@ public final class userGrpc {
      return getShowProfileMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.example.grpc.User.UpdateProfileRequest,
+      com.example.grpc.User.APIResponse> getUpdateProfileMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "updateProfile",
+      requestType = com.example.grpc.User.UpdateProfileRequest.class,
+      responseType = com.example.grpc.User.APIResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.grpc.User.UpdateProfileRequest,
+      com.example.grpc.User.APIResponse> getUpdateProfileMethod() {
+    io.grpc.MethodDescriptor<com.example.grpc.User.UpdateProfileRequest, com.example.grpc.User.APIResponse> getUpdateProfileMethod;
+    if ((getUpdateProfileMethod = userGrpc.getUpdateProfileMethod) == null) {
+      synchronized (userGrpc.class) {
+        if ((getUpdateProfileMethod = userGrpc.getUpdateProfileMethod) == null) {
+          userGrpc.getUpdateProfileMethod = getUpdateProfileMethod = 
+              io.grpc.MethodDescriptor.<com.example.grpc.User.UpdateProfileRequest, com.example.grpc.User.APIResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "user", "updateProfile"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.User.UpdateProfileRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.User.APIResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new userMethodDescriptorSupplier("updateProfile"))
+                  .build();
+          }
+        }
+     }
+     return getUpdateProfileMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.example.grpc.User.Empty,
       com.example.grpc.User.APIResponse> getLogoutMethod;
 
@@ -244,6 +276,13 @@ public final class userGrpc {
 
     /**
      */
+    public void updateProfile(com.example.grpc.User.UpdateProfileRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getUpdateProfileMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void logout(com.example.grpc.User.Empty request,
         io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getLogoutMethod(), responseObserver);
@@ -279,6 +318,13 @@ public final class userGrpc {
                 com.example.grpc.User.ShowUserProfileRequest,
                 com.example.grpc.User.ShowUserProfileRequestResponse>(
                   this, METHODID_SHOW_PROFILE)))
+          .addMethod(
+            getUpdateProfileMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.grpc.User.UpdateProfileRequest,
+                com.example.grpc.User.APIResponse>(
+                  this, METHODID_UPDATE_PROFILE)))
           .addMethod(
             getLogoutMethod(),
             asyncUnaryCall(
@@ -342,6 +388,14 @@ public final class userGrpc {
 
     /**
      */
+    public void updateProfile(com.example.grpc.User.UpdateProfileRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getUpdateProfileMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void logout(com.example.grpc.User.Empty request,
         io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
       asyncUnaryCall(
@@ -393,6 +447,13 @@ public final class userGrpc {
     public com.example.grpc.User.ShowUserProfileRequestResponse showProfile(com.example.grpc.User.ShowUserProfileRequest request) {
       return blockingUnaryCall(
           getChannel(), getShowProfileMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.grpc.User.APIResponse updateProfile(com.example.grpc.User.UpdateProfileRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getUpdateProfileMethod(), getCallOptions(), request);
     }
 
     /**
@@ -455,6 +516,14 @@ public final class userGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.User.APIResponse> updateProfile(
+        com.example.grpc.User.UpdateProfileRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getUpdateProfileMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.User.APIResponse> logout(
         com.example.grpc.User.Empty request) {
       return futureUnaryCall(
@@ -466,7 +535,8 @@ public final class userGrpc {
   private static final int METHODID_LOGIN = 1;
   private static final int METHODID_CREATE_PROFILE = 2;
   private static final int METHODID_SHOW_PROFILE = 3;
-  private static final int METHODID_LOGOUT = 4;
+  private static final int METHODID_UPDATE_PROFILE = 4;
+  private static final int METHODID_LOGOUT = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -500,6 +570,10 @@ public final class userGrpc {
         case METHODID_SHOW_PROFILE:
           serviceImpl.showProfile((com.example.grpc.User.ShowUserProfileRequest) request,
               (io.grpc.stub.StreamObserver<com.example.grpc.User.ShowUserProfileRequestResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_PROFILE:
+          serviceImpl.updateProfile((com.example.grpc.User.UpdateProfileRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse>) responseObserver);
           break;
         case METHODID_LOGOUT:
           serviceImpl.logout((com.example.grpc.User.Empty) request,
@@ -570,6 +644,7 @@ public final class userGrpc {
               .addMethod(getLoginMethod())
               .addMethod(getCreateProfileMethod())
               .addMethod(getShowProfileMethod())
+              .addMethod(getUpdateProfileMethod())
               .addMethod(getLogoutMethod())
               .build();
         }
