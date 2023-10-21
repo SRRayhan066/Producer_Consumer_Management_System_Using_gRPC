@@ -91,6 +91,38 @@ public final class userGrpc {
      return getLoginMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.example.grpc.User.CreateProfileRequest,
+      com.example.grpc.User.APIResponse> getCreateProfileMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "createProfile",
+      requestType = com.example.grpc.User.CreateProfileRequest.class,
+      responseType = com.example.grpc.User.APIResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.grpc.User.CreateProfileRequest,
+      com.example.grpc.User.APIResponse> getCreateProfileMethod() {
+    io.grpc.MethodDescriptor<com.example.grpc.User.CreateProfileRequest, com.example.grpc.User.APIResponse> getCreateProfileMethod;
+    if ((getCreateProfileMethod = userGrpc.getCreateProfileMethod) == null) {
+      synchronized (userGrpc.class) {
+        if ((getCreateProfileMethod = userGrpc.getCreateProfileMethod) == null) {
+          userGrpc.getCreateProfileMethod = getCreateProfileMethod = 
+              io.grpc.MethodDescriptor.<com.example.grpc.User.CreateProfileRequest, com.example.grpc.User.APIResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "user", "createProfile"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.User.CreateProfileRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.User.APIResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new userMethodDescriptorSupplier("createProfile"))
+                  .build();
+          }
+        }
+     }
+     return getCreateProfileMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.example.grpc.User.Empty,
       com.example.grpc.User.APIResponse> getLogoutMethod;
 
@@ -166,6 +198,13 @@ public final class userGrpc {
 
     /**
      */
+    public void createProfile(com.example.grpc.User.CreateProfileRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getCreateProfileMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void logout(com.example.grpc.User.Empty request,
         io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getLogoutMethod(), responseObserver);
@@ -187,6 +226,13 @@ public final class userGrpc {
                 com.example.grpc.User.LoginRequest,
                 com.example.grpc.User.APIResponse>(
                   this, METHODID_LOGIN)))
+          .addMethod(
+            getCreateProfileMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.grpc.User.CreateProfileRequest,
+                com.example.grpc.User.APIResponse>(
+                  this, METHODID_CREATE_PROFILE)))
           .addMethod(
             getLogoutMethod(),
             asyncUnaryCall(
@@ -234,6 +280,14 @@ public final class userGrpc {
 
     /**
      */
+    public void createProfile(com.example.grpc.User.CreateProfileRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getCreateProfileMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void logout(com.example.grpc.User.Empty request,
         io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse> responseObserver) {
       asyncUnaryCall(
@@ -271,6 +325,13 @@ public final class userGrpc {
     public com.example.grpc.User.APIResponse login(com.example.grpc.User.LoginRequest request) {
       return blockingUnaryCall(
           getChannel(), getLoginMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.grpc.User.APIResponse createProfile(com.example.grpc.User.CreateProfileRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getCreateProfileMethod(), getCallOptions(), request);
     }
 
     /**
@@ -317,6 +378,14 @@ public final class userGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.User.APIResponse> createProfile(
+        com.example.grpc.User.CreateProfileRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getCreateProfileMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.User.APIResponse> logout(
         com.example.grpc.User.Empty request) {
       return futureUnaryCall(
@@ -326,7 +395,8 @@ public final class userGrpc {
 
   private static final int METHODID_REGISTRATION = 0;
   private static final int METHODID_LOGIN = 1;
-  private static final int METHODID_LOGOUT = 2;
+  private static final int METHODID_CREATE_PROFILE = 2;
+  private static final int METHODID_LOGOUT = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -351,6 +421,10 @@ public final class userGrpc {
           break;
         case METHODID_LOGIN:
           serviceImpl.login((com.example.grpc.User.LoginRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse>) responseObserver);
+          break;
+        case METHODID_CREATE_PROFILE:
+          serviceImpl.createProfile((com.example.grpc.User.CreateProfileRequest) request,
               (io.grpc.stub.StreamObserver<com.example.grpc.User.APIResponse>) responseObserver);
           break;
         case METHODID_LOGOUT:
@@ -420,6 +494,7 @@ public final class userGrpc {
               .setSchemaDescriptor(new userFileDescriptorSupplier())
               .addMethod(getRegistrationMethod())
               .addMethod(getLoginMethod())
+              .addMethod(getCreateProfileMethod())
               .addMethod(getLogoutMethod())
               .build();
         }

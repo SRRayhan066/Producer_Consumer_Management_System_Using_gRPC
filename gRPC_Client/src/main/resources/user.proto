@@ -5,6 +5,7 @@ option  java_package = "com.example.grpc";
 service user{
   rpc registration(RegistrationRequest) returns (APIResponse);
   rpc login(LoginRequest) returns (APIResponse);
+  rpc createProfile(CreateProfileRequest) returns (APIResponse);
   rpc logout(Empty) returns (APIResponse);
 }
 
@@ -16,6 +17,13 @@ message RegistrationRequest{
 message LoginRequest{
   string email = 1;
   string password = 2;
+}
+
+message CreateProfileRequest{
+  string  email = 1;
+  string name = 2;
+  string department = 3;
+  string batch = 4;
 }
 
 message APIResponse{

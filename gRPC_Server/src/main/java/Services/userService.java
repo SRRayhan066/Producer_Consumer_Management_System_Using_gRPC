@@ -88,6 +88,47 @@ public class userService extends userGrpc.userImplBase {
     }
 
     @Override
+    public void createProfile(User.CreateProfileRequest request, StreamObserver<User.APIResponse> responseObserver) {
+//        super.createProfile(request, responseObserver);
+        String userEmail = request.getEmail();
+        String userName = request.getName();
+        String department = request.getDepartment();
+        String batch = request.getBatch();
+
+        User.APIResponse.Builder response = User.APIResponse.newBuilder();
+
+        try(Connection connection = DriverManager.getConnection(url,user,password)){
+            String query = "SELECT email FROM userprofile WHERE email=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,userEmail);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.next()){
+                String insertingQuery = "INSERT into userprofile(email,name,department,batch) VALUE(?,?,?,?)";
+                PreparedStatement statement = connection.prepareStatement(insertingQuery);
+                statement.setString(1,userEmail);
+                statement.setString(2,userName);
+                statement.setString(3,department);
+                statement.setString(4,batch);
+
+                int check = statement.executeUpdate();
+                if(check == 1){
+                    response.setResponseCode("200").setResponseMessage("Account is created successfully!!");
+                }else{
+                    response.setResponseCode("400").setResponseMessage("Failed to create account.");
+                }
+            }else{
+                response.setResponseCode("400").setResponseMessage("Account already exists");
+            }
+            responseObserver.onNext(response.build());
+            responseObserver.onCompleted();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public void logout(User.Empty request, StreamObserver<User.APIResponse> responseObserver) {
 //        super.logout(request, responseObserver);
         System.out.println("Inside the logout");
