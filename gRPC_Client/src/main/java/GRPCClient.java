@@ -42,14 +42,31 @@ public class GRPCClient {
                 System.out.print("Enter Your Batch: ");
                 String batch = sc.nextLine();
                 createProfile(email,name,department,batch,userStub);
-
             }else if(option == 4){
-                System.out.println("4 is choosed");
+                System.out.print("Enter Your E-mail: ");
+                String email = sc.nextLine();
+                viewProfile(email,userStub);
             }else if (option == 5){
                 System.out.println("5 is chosen");
             }else{
                 System.out.println("Invalid option.");
             }
+        }
+    }
+
+    private static void viewProfile(String email, userGrpc.userBlockingStub userStub) {
+        User.ShowUserProfileRequest viewRequest = User.ShowUserProfileRequest.newBuilder().setEmail(email).build();
+        User.ShowUserProfileRequestResponse response = userStub.showProfile(viewRequest);
+        String name = response.getName();
+        String department = response.getDepartment();
+        String batch = response.getBatch();
+        if(name == "null" || department == "null" || batch == "null"){
+            System.out.println("This account doesn't exist\n");
+        }else{
+            System.out.println("Email: "+email);
+            System.out.println("Name: "+name);
+            System.out.println("Department: "+department);
+            System.out.println("Batch: "+batch+"\n");
         }
     }
 

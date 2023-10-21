@@ -129,6 +129,30 @@ public class userService extends userGrpc.userImplBase {
     }
 
     @Override
+    public void showProfile(User.ShowUserProfileRequest request, StreamObserver<User.ShowUserProfileRequestResponse> responseObserver) {
+//        super.showProfile(request, responseObserver);
+        String userMail = request.getEmail();
+        User.ShowUserProfileRequestResponse.Builder response = User.ShowUserProfileRequestResponse.newBuilder();
+
+        try(Connection connection = DriverManager.getConnection(url,user,password)){
+            String query = "SELECT * FROM userprofile WHERE email=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,userMail);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                response.setEmail(resultSet.getString("email")).setName(resultSet.getString("name"))
+                        .setDepartment(resultSet.getString("department")).setBatch(resultSet.getString("batch"));
+            }else{
+                response.setEmail("null").setName("null").setDepartment("null").setBatch("null");
+            }
+            responseObserver.onNext(response.build());
+            responseObserver.onCompleted();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void logout(User.Empty request, StreamObserver<User.APIResponse> responseObserver) {
 //        super.logout(request, responseObserver);
         System.out.println("Inside the logout");
